@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1; /* Para que el video quede detrás del contenido */
+            object-fit: cover; /* Escala el video para cubrir toda la pantalla sin perder proporción */
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #116b15;
+        }
+        input[type="reset"] {
+            padding: 10px 20px;
+            background-color: #f20000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #e80e0e;
+        }
+        button{
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #116b15;
+        }
+    </style>
+</head>
+<body>
+<video autoplay muted loop class="video-background">
+    <source src="video4.mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+</video>
+<div class="container">
+    <h1>Lista de Productos</h1>
+    <a href="Formulation.html"><button>Registrar Producto</button></a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto : ${ListarProductos}">
+            <td th:text="${producto.productId}"></td>
+            <td th:text="${producto.productName}"></td>
+            <td th:text="${producto.price}"></td>
+            <td th:text="${producto.stock}"></td>
+            <td>
+                <!-- Botón para actualizar producto -->
+                <a th:href="@{'/producto/editar/' + ${producto.productId}}"><input type="submit" value="Editar"></a>
+                <!-- Botón para eliminar producto -->
+                <a th:href="@{'/producto/eliminar/' + ${producto.productId}}" onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+                    <input type="reset" value="Eliminar">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+
+
